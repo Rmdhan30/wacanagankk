@@ -1,0 +1,2327 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Aesthetic Memory Album</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #101d17;
+    color: #f1f3e9;
+    overflow-x: hidden;
+}
+
+:root {
+    --green: #a5c99e;
+    --dark: #101d17;
+    --light: #e8f0e3;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background:
+    linear-gradient(rgba(8,22,14,.90), rgba(8,22,14,.96)),
+    url("https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800");
+
+    background-size: cover;
+    background-position: center;
+}
+
+/* =========================
+   OPENING SCREEN
+========================= */
+
+.opening {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+    linear-gradient(rgba(8,22,14,.72), rgba(8,22,14,.95)),
+    url("https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800");
+
+    background-size: cover;
+    background-position: center;
+
+    transition: 1s;
+}
+
+.opening.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.opening-content {
+    padding: 25px;
+    animation: appear 1.3s ease;
+}
+
+.small-title {
+    color: var(--green);
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+.opening h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 7vw, 75px);
+    line-height: 1.2;
+    margin: 25px 0;
+}
+
+.opening h1 i {
+    color: var(--green);
+    font-weight: 500;
+}
+
+.opening p.description {
+    color: #c3d0c1;
+    margin-bottom: 35px;
+}
+
+.opening button {
+    padding: 16px 35px;
+    border: 1px solid var(--green);
+    background: var(--green);
+    color: #14271a;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.opening button:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-4px);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 25px 8%;
+
+    border-bottom: 1px solid #ffffff15;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.logo span {
+    color: var(--green);
+}
+
+.music-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.music-btn {
+    padding: 11px 18px;
+    background: #ffffff10;
+    color: white;
+    border: 1px solid #ffffff35;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.music-btn:hover {
+    background: var(--green);
+    color: #14271a;
+}
+
+.volume {
+    width: 80px;
+    accent-color: var(--green);
+    cursor: pointer;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    text-align: center;
+    padding: 110px 20px 100px;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 1.2;
+    margin: 25px 0;
+}
+
+.hero h1 i {
+    color: var(--green);
+    font-weight: 500;
+}
+
+.hero p:last-child {
+    color: #bdcbbd;
+    font-size: 14px;
+}
+
+/* =========================
+   ALBUM SECTION
+========================= */
+
+.album-section {
+    max-width: 1450px;
+    margin: auto;
+    padding: 30px 8% 100px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 35px;
+}
+
+.section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    margin-top: 12px;
+}
+
+#photoCount {
+    color: var(--green);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.category {
+    background: transparent;
+    border: 1px solid #ffffff30;
+    color: #d5dfd4;
+
+    padding: 11px 22px;
+    border-radius: 30px;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.category:hover,
+.category.active {
+    background: var(--green);
+    color: #14271a;
+    border-color: var(--green);
+}
+
+/* =========================
+   PHOTO GALLERY
+========================= */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.photo-card {
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+
+    animation: appear .7s ease;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .7s;
+}
+
+.photo-card:hover img {
+    transform: scale(1.1);
+}
+
+.photo-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        transparent 40%,
+        rgba(5,15,9,.95)
+    );
+
+    pointer-events: none;
+}
+
+.photo-info {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    z-index: 2;
+}
+
+.photo-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+}
+
+.photo-info p {
+    color: #c5d3c3;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+/* =========================
+   SLIDESHOW BUTTON
+========================= */
+
+.slideshow-btn {
+    display: block;
+    margin: 50px auto 0;
+
+    padding: 16px 35px;
+
+    border: 1px solid var(--green);
+    border-radius: 30px;
+
+    background: transparent;
+    color: var(--green);
+
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.slideshow-btn:hover {
+    background: var(--green);
+    color: #14271a;
+}
+
+/* =========================
+   SLIDESHOW MODAL
+========================= */
+
+.slide-modal {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    background: rgba(3,10,6,.97);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+}
+
+.slide-modal.show {
+    display: flex;
+}
+
+.slide-content {
+    text-align: center;
+    max-width: 850px;
+    width: 75%;
+}
+
+.slide-content img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.slide-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.slide-content p {
+    color: var(--green);
+    margin-top: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 1px solid #ffffff40;
+
+    background: #ffffff15;
+    color: white;
+
+    font-size: 18px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.nav-btn:hover {
+    background: var(--green);
+    color: #14271a;
+}
+
+.prev {
+    left: 5%;
+}
+
+.next {
+    right: 5%;
+}
+
+.slide-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.slide-controls button {
+    padding: 10px 18px;
+    background: #ffffff15;
+    border: 1px solid #ffffff35;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+    padding: 70px 20px;
+    border-top: 1px solid #ffffff15;
+}
+
+footer h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+}
+
+footer p {
+    color: #b8c5b6;
+    margin: 12px 0 30px;
+}
+
+footer span {
+    color: #829482;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 850px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .photo-card {
+        height: 280px;
+    }
+}
+
+@media(max-width: 550px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card {
+        height: 350px;
+    }
+
+    .navbar {
+        padding: 20px 5%;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .music-area {
+        gap: 5px;
+    }
+
+    .music-btn {
+        padding: 9px 12px;
+        font-size: 10px;
+    }
+
+    .volume {
+        width: 55px;
+    }
+
+    .album-section {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .section-header h2 {
+        font-size: 29px;
+    }
+
+    .slide-content {
+        width: 90%;
+    }
+
+    .nav-btn {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* =========================================
+   ANIMASI NATURAL - ALBUM WACANA
+========================================= */
+
+/* Background bergerak perlahan */
+.background {
+    animation: backgroundMove 35s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+@keyframes backgroundMove {
+    from {
+        transform: scale(1);
+        background-position: center center;
+    }
+    to {
+        transform: scale(1.08);
+        background-position: 55% 45%;
+    }
+}
+
+/* Opening screen */
+.opening-content {
+    animation:
+        appear 1.3s ease both,
+        openingFloat 4s ease-in-out 1.3s infinite alternate;
+}
+
+@keyframes openingFloat {
+    from { transform: translateY(0); }
+    to { transform: translateY(-8px); }
+}
+
+/* Tulisan muncul bertahap */
+.hero > * {
+    animation: heroReveal 1.2s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.hero h1 {
+    animation-delay: .2s;
+}
+
+.hero p:last-child {
+    animation-delay: .4s;
+}
+
+@keyframes heroReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* Foto muncul ketika masuk layar */
+.photo-card {
+    opacity: 0;
+    transform: translateY(30px) scale(.98);
+    animation: none;
+    transition:
+        opacity .75s ease,
+        transform .75s cubic-bezier(.2,.7,.2,1),
+        box-shadow .45s ease;
+    transition-delay: var(--delay, 0s);
+}
+
+.photo-card.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.photo-card:hover {
+    transform: translateY(-7px) scale(1.012);
+    box-shadow: 0 18px 38px rgba(0,0,0,.28);
+}
+
+.photo-card img {
+    transition: transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.photo-card:hover img {
+    transform: scale(1.07);
+}
+
+/* Tombol kategori */
+.category {
+    transition: all .3s cubic-bezier(.2,.7,.2,1);
+}
+
+.category:hover {
+    transform: translateY(-3px);
+}
+
+/* Slideshow */
+.slide-modal {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .4s ease, visibility .4s ease;
+}
+
+.slide-modal.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.slide-content {
+    opacity: 0;
+    transform: translateY(15px) scale(.98);
+    transition:
+        opacity .45s ease,
+        transform .55s cubic-bezier(.2,.7,.2,1);
+}
+
+.slide-modal.show .slide-content {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.slide-content img.photo-change {
+    animation: photoTransition .55s ease both;
+}
+
+@keyframes photoTransition {
+    from {
+        opacity: 0;
+        transform: scale(.975);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Animasi tombol */
+button {
+    transition:
+        transform .25s ease,
+        background .3s ease,
+        color .3s ease;
+}
+
+button:active {
+    transform: scale(.97);
+}
+
+/* Pengaturan gerakan */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .photo-card {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* =================================
+   FITUR 4: PHOTO SHINE EFFECT
+================================= */
+
+.photo-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-card::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -80%;
+    width: 45%;
+    height: 300%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+    );
+
+    transform: rotate(25deg);
+    pointer-events: none;
+    transition: left 0.8s ease;
+}
+
+.photo-card:hover::after {
+    left: 140%;
+}
+
+
+/* =================================
+   FITUR 5: SMOOTH SCROLLING
+================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+
+/* =====================================
+   SMOOTH SLIDESHOW ANIMATION
+===================================== */
+
+#slideImage {
+    opacity: 1;
+    transform: scale(1);
+    transition:
+        opacity 0.45s ease,
+        transform 0.65s cubic-bezier(.2, .7, .2, 1);
+    will-change: opacity, transform;
+}
+
+#slideImage.slide-changing {
+    opacity: 0;
+    transform: scale(0.96);
+}
+
+#slideImage.slide-show {
+    animation: smoothSlideShow 0.7s cubic-bezier(.2, .7, .2, 1);
+}
+
+@keyframes smoothSlideShow {
+    0% {
+        opacity: 0;
+        transform: scale(0.96);
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Transisi tombol slideshow */
+.slide-modal button {
+    transition:
+        transform 0.25s ease,
+        background 0.3s ease;
+}
+
+.slide-modal button:hover {
+    transform: scale(1.08);
+}
+
+.slide-modal button:active {
+    transform: scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #slideImage,
+    .slide-modal button {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- =========================
+     OPENING SCREEN
+========================= -->
+
+<div class="opening" id="opening">
+
+    <div class="opening-content">
+
+        <p class="small-title">WELCOME TO ALBUM WACANA</p>
+
+        <h1>
+            Little Moments,<br>
+            <i>Forever Memories.</i>
+        </h1>
+
+        <p class="description">
+            Every picture tells a beautiful story.
+        </p>
+
+        <button onclick="enterAlbum()">
+            OPEN ALBUM WACANA ↗
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        WACANAGANK<span>.</span>
+    </div>
+
+    <div class="music-area">
+
+        <button class="music-btn" onclick="toggleMusic()">
+            <span id="musicIcon">♫</span>
+            <span id="musicText">PLAY MUSIC</span>
+        </button>
+
+        <input
+            type="range"
+            class="volume"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.5"
+            title="Volume musik"
+        >
+
+    </div>
+
+</nav>
+
+<!-- =========================
+     HERO SECTION
+========================= -->
+
+<section class="hero">
+
+    <p class="small-title">
+        COLLECTION OF ALBUM WACANA
+    </p>
+
+    <h1>
+        Beautiful Things<br>
+        <i>Deserve To Be Remembered.</i>
+    </h1>
+
+    <p>
+        A little collection of moments that mean everything.
+    </p>
+
+</section>
+
+<!-- =========================
+     ALBUM SECTION
+========================= -->
+
+<section class="album-section">
+
+    <div class="section-header">
+
+        <div>
+            <p class="small-title">EXPLORE OF ALBUM WACANA</p>
+            <h2>ALBUM WACANA</h2>
+        </div>
+
+        <span id="photoCount">25 PHOTOS AND 21 VIDEOS</span>
+
+    </div>
+
+    <!-- CATEGORY -->
+
+    <div class="categories">
+
+        <button class="category active"
+            onclick="filterAlbum('all',this)">
+            All
+        </button>
+
+        <button class="category"
+            onclick="filterAlbum('member',this)">
+            Member
+        </button>
+
+        <button class="category"
+            onclick="filterAlbum('24okt26',this)">
+            24okt26
+        </button>
+
+    </div>
+
+    <!-- PHOTO GRID -->
+
+    <div class="gallery" id="gallery">
+
+        <div class="photo-card" data-category="member"
+            onclick="openSlide(0)">
+
+            <img src="assets/foto1.jpg" alt="Member">
+
+            <div class="photo-info">
+                <h3>Giovano</h3>
+                <p>Anggota</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="member"
+            onclick="openSlide(1)">
+
+            <img src="assets/foto2.jpg" alt="Member">
+
+            <div class="photo-info">
+                <h3>Dika</h3>
+                <p>Anggota</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="member"
+            onclick="openSlide(2)">
+
+            <img src="assets/foto3.jpg" alt="Member">
+
+            <div class="photo-info">
+                <h3>Randika</h3>
+                <p>Anggota</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="member"
+            onclick="openSlide(3)">
+
+            <img src="assets/foto4.jpg" alt="Member">
+
+            <div class="photo-info">
+                <h3>Helsi</h3>
+                <p>Anggota</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="member"
+            onclick="openSlide(4)">
+
+            <img src="assets/foto5.jpg" alt="Member">
+
+            <div class="photo-info">
+                <h3>Talita</h3>
+                <p>Anggota</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="member"
+            onclick="openSlide(5)">
+
+            <img src="assets/foto6.jpg" alt="Member">
+
+            <div class="photo-info">
+                <h3>Aisyah</h3>
+                <p>Anggota</p>
+            </div>
+
+        </div>
+        
+        <div class="photo-card" data-category="member"
+            onclick="openSlide(6)">
+
+            <img src="assets/foto7.jpg" alt="Member">
+
+            <div class="photo-info">
+                <h3>Alfin</h3>
+                <p>Anggota</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(7)">
+
+            <img src="assets/foto8.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(8)">
+
+            <img src="assets/foto9.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(9)">
+
+            <img src="assets/foto10.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(10)">
+
+            <img src="assets/foto11.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(11)">
+
+            <img src="assets/foto12.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(12)">
+
+            <img src="assets/foto13.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(13)">
+
+            <img src="assets/foto14.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(14)">
+
+            <img src="assets/foto15.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(15)">
+
+            <img src="assets/foto16.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(16)">
+
+            <img src="assets/foto17.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(17)">
+
+            <img src="assets/foto18.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(18)">
+
+            <img src="assets/foto19.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(19)">
+
+            <img src="assets/foto20.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(20)">
+
+            <img src="assets/foto21.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(21)">
+
+            <img src="assets/foto22.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(22)">
+
+            <img src="assets/foto23.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(23)">
+
+            <img src="assets/foto24.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <div class="photo-card" data-category="24okt26"
+            onclick="openSlide(24)">
+
+            <img src="assets/foto25.jpg" alt="24okt26">
+
+            <div class="photo-info">
+                <h3>Lemo nakai</h3>
+                <p>24 Oktober 2026</p>
+            </div>
+
+        </div>
+
+        <!-- VIDEO 1 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video1.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 2 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video2.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 3 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video3.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 4 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video4.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 5 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video5.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 6 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video6.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 7 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video7.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 8 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video8.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 9 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video9.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 10 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video10.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 11 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video11.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 12 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video12.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 13 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video13.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 14 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video14.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 15 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video15.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 16 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video16.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 17 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video17.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 18 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video18.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 19 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video19.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 20 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video20.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- VIDEO 21 -->
+<div class="video-card" data-category="24okt26">
+    <video controls preload="metadata" playsinline>
+        <source src="assets/video21.mp4" type="video/mp4">
+    </video>
+    <div class="video-info">
+        <h3>Lemo nakai</h3>
+        <p>24 Oktober 2026</p>
+    </div>
+</div>
+
+<!-- SLIDESHOW BUTTON -->
+
+    <button class="slideshow-btn" onclick="startSlideshow()">
+        ▶ START SLIDESHOW
+    </button>
+
+</section>
+
+<!-- =========================
+     SLIDESHOW MODAL
+========================= -->
+
+<div class="slide-modal" id="slideModal">
+
+    <button class="close-btn" onclick="closeSlide()">
+        ✕
+    </button>
+
+    <button class="nav-btn prev" onclick="changeSlide(-1)">
+        ❮
+    </button>
+
+    <div class="slide-content">
+
+        <img id="slideImage" src="" alt="Album photo">
+
+        <h2 id="slideTitle"></h2>
+
+        <p id="slideNumber"></p>
+
+        <div class="slide-controls">
+
+            <button onclick="toggleSlideshow()"
+                id="pauseButton">
+                ❚❚ PAUSE
+            </button>
+
+            <button onclick="toggleFullscreen()">
+                ⛶ FULLSCREEN
+            </button>
+
+        </div>
+
+    </div>
+
+    <button class="nav-btn next" onclick="changeSlide(1)">
+        ❯
+    </button>
+
+</div>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <h2>Made With Love.</h2>
+
+    <p>Collect moments, not things.</p>
+
+    <span>© 2026 MY PERSONAL ALBUM</span>
+
+</footer>
+
+<!-- =========================
+     AUDIO
+========================= -->
+
+<audio id="backgroundMusic" loop preload="none">
+    <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const opening = document.getElementById("opening");
+
+const music = document.getElementById("backgroundMusic");
+
+const modal = document.getElementById("slideModal");
+
+let currentSlide = 0;
+
+let slideshowTimer = null;
+
+let isPlaying = false;
+
+let slideshowPlaying = false;
+
+
+/* =========================
+   PHOTO DATA
+========================= */
+
+const photos = [
+
+    {
+        src: "assets/foto1.jpg",
+        title: "Giovano"
+    },
+
+    {
+        src: "assets/foto2.jpg",
+        title: "Dika"
+    },
+
+    {
+        src: "assets/foto3.jpg",
+        title: "Randika"
+    },
+
+    {
+        src: "assets/foto4.jpg",
+        title: "Helsi"
+    },
+
+    {
+        src: "assets/foto5.jpg",
+        title: "Talita"
+    },
+
+    {
+        src: "assets/foto6.jpg",
+        title: "Aisyah"
+    },
+
+    {
+        src: "assets/foto7.jpg",
+        title: "Alfin"
+    },
+
+    {
+        src: "assets/foto8.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto9.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto10.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto11.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto12.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto13.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto14.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto15.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto16.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto17.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto18.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto19.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto20.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto21.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto22.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto23.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto24.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+    {
+        src: "assets/foto25.jpg",
+        title: "Lemo nakai 24okt26"
+    },
+
+
+];
+
+
+/* =========================
+   OPENING
+========================= */
+
+function enterAlbum() {
+
+    opening.classList.add("hide");
+
+    playMusic();
+
+}
+
+
+/* =========================
+   MUSIC PLAYER
+========================= */
+
+function playMusic() {
+
+    music.volume = document.getElementById("volume").value;
+
+    music.play().then(() => {
+
+        isPlaying = true;
+
+        updateMusicButton();
+
+    }).catch(() => {
+
+        isPlaying = false;
+
+        updateMusicButton();
+
+        alert("Musik belum bisa diputar. Periksa file music.mp3.");
+
+    });
+
+}
+
+
+function toggleMusic() {
+
+    if (isPlaying) {
+
+        music.pause();
+
+        isPlaying = false;
+
+    } else {
+
+        playMusic();
+
+    }
+
+    updateMusicButton();
+
+}
+
+
+function updateMusicButton() {
+
+    document.getElementById("musicIcon").textContent =
+        isPlaying ? "♫" : "♪";
+
+    document.getElementById("musicText").textContent =
+        isPlaying ? "PAUSE MUSIC" : "PLAY MUSIC";
+
+}
+
+
+/* VOLUME CONTROL */
+
+document.getElementById("volume").addEventListener("input", function() {
+
+    music.volume = this.value;
+
+});
+
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+function filterAlbum(category, button) {
+
+    const cards = document.querySelectorAll('.photo-card, .video-card');
+
+    cards.forEach(card => {
+
+        if (
+            category === "all" ||
+            card.dataset.category === category
+        ) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    document.querySelectorAll(".category").forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+
+    button.classList.add("active");
+
+
+    const visible = [...cards].filter(card => {
+
+        return card.style.display !== "none";
+
+    }).length;
+
+
+    document.getElementById("photoCount").textContent =
+
+        String(visible).padStart(2, "0") + " PHOTOS AND 21 VIDEOS";
+
+}
+
+
+/* =========================
+   OPEN PHOTO
+========================= */
+
+function openSlide(index) {
+
+    stopSlideshow();
+
+    currentSlide = index;
+
+    modal.classList.add("show");
+
+    showPhoto();
+
+    updatePauseButton();
+
+}
+
+
+/* =========================
+   SHOW PHOTO
+========================= */
+
+function showPhoto() {
+
+    const photo = photos[currentSlide];
+
+    document.getElementById("slideImage").src = photo.src;
+
+    document.getElementById("slideTitle").textContent =
+        photo.title;
+
+    document.getElementById("slideNumber").textContent =
+
+        `${currentSlide + 1} / ${photos.length}`;
+
+}
+
+
+/* =========================
+   NEXT / PREVIOUS
+========================= */
+
+function changeSlide(direction) {
+
+    currentSlide += direction;
+
+    if (currentSlide >= photos.length) {
+
+        currentSlide = 0;
+
+    }
+
+    if (currentSlide < 0) {
+
+        currentSlide = photos.length - 1;
+
+    }
+
+    showPhoto();
+
+}
+
+
+/* =========================
+   AUTOMATIC SLIDESHOW
+========================= */
+
+function startSlideshow() {
+
+    currentSlide = 0;
+
+    modal.classList.add("show");
+
+    showPhoto();
+
+    slideshowPlaying = true;
+
+    runSlideshow();
+
+}
+
+
+function runSlideshow() {
+
+    stopSlideshow();
+
+    slideshowPlaying = true;
+
+    updatePauseButton();
+
+    slideshowTimer = setInterval(() => {
+
+        currentSlide = (currentSlide + 1) % photos.length;
+
+        showPhoto();
+
+    }, 3000);
+
+}
+
+
+/* =========================
+   PAUSE / PLAY SLIDESHOW
+========================= */
+
+function toggleSlideshow() {
+
+    if (slideshowPlaying) {
+
+        stopSlideshow();
+
+    } else {
+
+        runSlideshow();
+
+    }
+
+    updatePauseButton();
+
+}
+
+
+function stopSlideshow() {
+
+    if (slideshowTimer) {
+
+        clearInterval(slideshowTimer);
+
+        slideshowTimer = null;
+
+    }
+
+    slideshowPlaying = false;
+
+    updatePauseButton();
+
+}
+
+
+function updatePauseButton() {
+
+    const button = document.getElementById("pauseButton");
+
+    if (!button) return;
+
+    button.textContent = slideshowPlaying
+        ? "❚❚ PAUSE"
+        : "▶ PLAY";
+
+}
+
+
+/* =========================
+   CLOSE SLIDESHOW
+========================= */
+
+function closeSlide() {
+
+    modal.classList.remove("show");
+
+    stopSlideshow();
+
+}
+
+
+/* =========================
+   FULLSCREEN
+========================= */
+
+function toggleFullscreen() {
+
+    const image = document.getElementById("slideImage");
+
+    if (!document.fullscreenElement) {
+
+        if (image.requestFullscreen) {
+
+            image.requestFullscreen();
+
+        }
+
+    } else {
+
+        document.exitFullscreen();
+
+    }
+
+}
+
+
+/* =========================
+   KEYBOARD CONTROL
+========================= */
+
+document.addEventListener("keydown", event => {
+
+    if (!modal.classList.contains("show")) return;
+
+    if (event.key === "ArrowRight") {
+
+        changeSlide(1);
+
+    }
+
+    if (event.key === "ArrowLeft") {
+
+        changeSlide(-1);
+
+    }
+
+    if (event.key === "Escape") {
+
+        closeSlide();
+
+    }
+
+});
+
+
+/* =========================
+   CLICK OUTSIDE
+========================= */
+
+modal.addEventListener("click", event => {
+
+    if (event.target === modal) {
+
+        closeSlide();
+
+    }
+
+});
+
+/* =========================================
+   ANIMASI SCROLL NATURAL
+========================================= */
+
+const revealElements = document.querySelectorAll(
+    ".photo-card, .section-header, .categories, footer"
+);
+
+// Jeda kecil agar foto tidak muncul bersamaan
+revealElements.forEach((element, index) => {
+    if (element.classList.contains("photo-card")) {
+        element.style.setProperty(
+            "--delay",
+            `${(index % 3) * 0.10}s`
+        );
+    }
+});
+
+// Animasi saat elemen masuk layar
+if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.10,
+            rootMargin: "0px 0px -35px 0px"
+        }
+    );
+
+    revealElements.forEach((element) => {
+        revealObserver.observe(element);
+    });
+
+} else {
+    revealElements.forEach((element) => {
+        element.classList.add("is-visible");
+    });
+}
+
+/* =========================================
+   TRANSISI FOTO SLIDESHOW
+========================================= */
+
+const originalShowPhoto = showPhoto;
+
+showPhoto = function() {
+    const image = document.getElementById("slideImage");
+
+    image.classList.remove("photo-change");
+    void image.offsetWidth;
+
+    originalShowPhoto();
+
+    image.classList.add("photo-change");
+};
+
+
+</script>
+
+
+<!-- FITUR SLIDESHOW 25 FOTO DAN 21 VIDEO -->
+
+<style>
+/* Animasi slideshow */
+#slideshow {
+    transition: opacity 0.8s ease, transform 1.2s ease;
+    opacity: 1;
+    transform: scale(1);
+}
+
+#slideshow.slide-hide {
+    opacity: 0;
+    transform: scale(1.06);
+}
+
+#slideshow.slide-show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* VIDEO GALLERY */
+.video-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #10251c;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.video-card video {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: block;
+    object-fit: cover;
+    background: #07130e;
+}
+
+.video-info {
+    padding: 12px;
+    color: white;
+}
+
+.video-info h3 {
+    font-size: 15px;
+    margin: 0 0 5px;
+}
+
+.video-info p {
+    font-size: 12px;
+    margin: 0;
+    opacity: 0.7;
+}
+
+</style>
+
+<script>
+/* TOTAL 25 FOTO DAN 21 VIDEO */
+const totalFotoAlbum = 25;
+const totalVideoAlbum = 21;
+
+let fotoAlbumSekarang = 0;
+let videoAlbumSekarang = 0;
+let timerAlbum = null;
+let sedangTransisi = false;
+
+/* Durasi pergantian foto */
+const durasiAlbum = 4000;
+
+/* Daftar foto */
+const fotoAlbum = [];
+const videoAlbum = [];
+
+for (let i = 1; i <= totalFotoAlbum; i++) {
+    fotoAlbum.push(`assets/foto${i}.jpg`);
+}
+
+for (let i = 1; i <= totalVideoAlbum; i++) {
+    videoAlbum.push(`assets/video${i}.mp4`);
+}
+
+/* Fungsi slideshow */
+function tampilkanFotoAlbum(index) {
+
+    const gambar = document.getElementById("slideshow");
+
+    if (!gambar || sedangTransisi) return;
+
+    sedangTransisi = true;
+
+    gambar.classList.add("slide-hide");
+    gambar.classList.remove("slide-show");
+
+    setTimeout(() => {
+
+        fotoAlbumSekarang =
+            (index + totalFotoAlbum) % totalFotoAlbum;
+
+        gambar.onload = () => {
+            gambar.classList.remove("slide-hide");
+            gambar.classList.add("slide-show");
+            sedangTransisi = false;
+        };
+
+        gambar.onerror = () => {
+            sedangTransisi = false;
+            console.error("Foto tidak ditemukan:", gambar.src);
+        };
+
+        gambar.src = fotoAlbum[fotoAlbumSekarang];
+
+    }, 500);
+}
+
+/* Foto berikutnya */
+function nextFotoAlbum() {
+    tampilkanFotoAlbum(fotoAlbumSekarang + 1);
+}
+
+/* Foto sebelumnya */
+function prevFotoAlbum() {
+    tampilkanFotoAlbum(fotoAlbumSekarang - 1);
+}
+
+/* Mulai slideshow otomatis */
+function mulaiFotoAlbum() {
+
+    clearInterval(timerAlbum);
+
+    timerAlbum = setInterval(() => {
+        nextFotoAlbum();
+    }, durasiAlbum);
+
+}
+
+/* Hentikan slideshow */
+function berhentiFotoAlbum() {
+    clearInterval(timerAlbum);
+}
+</script>
+
+</body>
+</html>
+<audio id="backgroundMusic" loop preload="none">
+    <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
